@@ -1,19 +1,24 @@
 // app/notes/page.tsx
-
+'use client';
 import NoteList from '@/components/NoteList/NoteList';
-import { getNotes } from '@/src/lib/api';
+import { getNotes, Note } from '@/src/lib/api';
+import { useState } from 'react';
 
-// 1. Імпортуємо функцію
+const Notes = () => {
+  const [notes, setNotes] = useState<Note[]>([]);
 
-// 2. Робимо фукнцію асинхронною
-const Notes = async () => {
-  // 3. Виконуємо запит
-  const response = await getNotes();
+  const handleClick = async () => {
+    const response = await getNotes();
+    if (response?.notes) {
+      setNotes(response.notes);
+    }
+  };
 
   return (
     <section>
       <h1>Notes List</h1>
-      {response?.notes?.length > 0 && <NoteList notes={response.notes} />}
+      <button onClick={handleClick}>Get my notes</button>
+      {notes.length > 0 && <NoteList notes={notes} />}
     </section>
   );
 };
