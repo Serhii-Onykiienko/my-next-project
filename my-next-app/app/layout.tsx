@@ -13,23 +13,27 @@ const geistMono = Geist_Mono({
   subsets: ['latin'],
 });
 
+// app/layout.tsx
+
+import TanStackProvider from '@/components/TanStackProvider/TanStackProvider';
+
+// інший код файлу
+
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Header />
-
-        <main>{children}</main>
-
-        <footer>
-          <p>
-            Created <time dateTime="2025">2025</time>
-          </p>
-        </footer>
+        <TanStackProvider>
+          <Header />
+          <main>{children}</main>
+          <footer>
+            <p>
+              Created <time dateTime="2025">2025</time>
+            </p>
+          </footer>
+        </TanStackProvider>
       </body>
     </html>
   );
