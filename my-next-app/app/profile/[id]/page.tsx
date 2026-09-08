@@ -7,11 +7,11 @@ export default async function ProfilePage({
 }: {
   params: { id: string };
 }) {
-  const user = await getUser(params.id);
+  // const user = await getUser(params.id);
 
-  if (!user) {
-    notFound(); // Показує /profile/not-found.tsx
-  }
+  // if (!user) {
+  //   notFound(); // Показує /profile/not-found.tsx
+  // }
 
-  return <div>{user.name}</div>;
+  return <div>Помилка</div>;
 }
