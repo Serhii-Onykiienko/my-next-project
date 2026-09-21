@@ -78,3 +78,18 @@ export async function register(data: RegisterRequest) {
 
   return res.data;
 }
+
+type CheckSessionRequest = {
+  success: boolean;
+};
+
+export async function checkSession() {
+  const res = await nextServer.get<CheckSessionRequest>('/auth/session');
+
+  return res.data.success;
+}
+
+export async function getMe() {
+  const { data } = await nextServer.get<User>('/auth/me');
+  return data;
+}
