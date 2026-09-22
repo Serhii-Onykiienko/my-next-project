@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { register, RegisterRequest } from '@/lib/api';
+import { login, LoginRequest } from '@/lib/api';
 import { useAuthStore } from '@/lib/stores/authStore';
 import { ApiError } from '@/app/api/api';
 
-const SignUp = () => {
+const SignIn = () => {
   const router = useRouter();
   const [error, setError] = useState('');
   // Отримуємо метод із стора
@@ -14,8 +14,8 @@ const SignUp = () => {
 
   const handleSubmit = async (formData: FormData) => {
     try {
-      const formValues = Object.fromEntries(formData) as RegisterRequest;
-      const res = await register(formValues);
+      const formValues = Object.fromEntries(formData) as LoginRequest;
+      const res = await login(formValues);
       if (res) {
         // Записуємо користувача у глобальний стан
         setUser(res);
@@ -33,26 +33,20 @@ const SignUp = () => {
   };
 
   return (
-    <>
-      <h1>Sign up</h1>
-      <form action={handleSubmit}>
-        <label>
-          Username
-          <input type="text" name="userName" required />
-        </label>
-        <label>
-          Email
-          <input type="email" name="email" required />
-        </label>
-        <label>
-          Password
-          <input type="password" name="password" required />
-        </label>
-        <button type="submit">Register</button>
-      </form>
+    <form action={handleSubmit}>
+      <h1>Sign in</h1>
+      <label>
+        Email
+        <input type="email" name="email" required />
+      </label>
+      <label>
+        Password
+        <input type="password" name="password" required />
+      </label>
+      <button type="submit">Log in</button>
       {error && <p>{error}</p>}
-    </>
+    </form>
   );
 };
 
-export default SignUp;
+export default SignIn;

@@ -19,7 +19,7 @@ export type NoteListResponse = {
 
 const nextServer = axios.create({
   baseURL: 'https://next-v1-notes-api.goit.study',
-  withCredentials: true,
+  withCredentials: false,
 });
 
 export const getNotes = async (categoryId?: string) => {
@@ -93,3 +93,21 @@ export async function getMe() {
   const { data } = await nextServer.get<User>('/auth/me');
   return data;
 }
+
+// lib/api.ts
+
+// Попередній код без змін
+
+export type LoginRequest = {
+  email: string;
+  password: string;
+};
+
+export const login = async (data: LoginRequest) => {
+  const res = await nextServer.post<User>('/auth/login', data);
+  return res.data;
+};
+
+export const logout = async (): Promise<void> => {
+  await nextServer.post('/auth/logout');
+};
